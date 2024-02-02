@@ -3,6 +3,7 @@ import words from "./wordList.json";
 import { HangmanDrawing } from "./components/HangmanDrawing";
 import { HangmanWord } from "./components/HangmanWord";
 import { Keyboard } from "./components/Keyboard";
+import styles from "./moduleStyles/app.module.css";
 
 function getWord() {
 	return words[Math.floor(Math.random() * words.length)];
@@ -30,6 +31,11 @@ function App() {
 		},
 		[guessedLetters, isWinner, isLoser]
 	);
+
+	function handleNewWord() {
+		setGuessedLetters([]);
+		setWordToGuess(getWord());
+	}
 
 	useEffect(() => {
 		const handler = (e: KeyboardEvent) => {
@@ -86,6 +92,9 @@ function App() {
 				guessedLetters={guessedLetters}
 				wordToGuess={wordToGuess}
 			/>
+			<button onClick={handleNewWord} className={styles.btn}>
+				New Word
+			</button>
 			<div style={{ alignSelf: "stretch" }}>
 				<Keyboard
 					disabled={isWinner || isLoser}
